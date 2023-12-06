@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { getLimitProducts } from "./utils/constant";
+import ProductContainer from "./components/ProductContainer";
+const App = () => {
+  const [products, setProducts] = useState([]);
+  const [limit, setLimit] = useState(10);
 
-function App() {
+  useEffect(() => {
+    axios
+      .get(getLimitProducts(limit))
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [limit]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ProductContainer products={products} setLimit={setLimit} />
     </div>
   );
-}
+};
 
 export default App;
