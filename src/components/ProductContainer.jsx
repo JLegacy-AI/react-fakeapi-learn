@@ -3,9 +3,7 @@ import ProductCard from "./ProductCard";
 
 const ProductContainer = ({ products, setLimit }) => {
   function incrementLimit() {
-    setLimit((prevLimit) => {
-      return;
-    });
+    setLimit((prevLimit) => prevLimit + 4);
   }
 
   return (
